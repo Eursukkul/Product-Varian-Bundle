@@ -1,20 +1,14 @@
-# 🎯 FlowAccount - Product Variant & Bundle System# FlowAccount - Product Variant & Bundle System# FlowAccount - Product Variant & Bundle System
+# 🎯 FlowAccount - Product Variant & Bundle System
 
-
-
-[![.NET](https://img.shields.io/badge/.NET-9.0-purple)](https://dotnet.microsoft.com/)
-
+[![.NET](https://img.shields.io/badge/.NET-8.0-purple)](https://dotnet.microsoft.com/)
 [![C#](https://img.shields.io/badge/C%23-12.0-blue)](https://docs.microsoft.com/en-us/dotnet/csharp/)
-
-[![SQL Server](https://img.shields.io/badge/SQL%20Server-LocalDB-red)](https://www.microsoft.com/en-us/sql-server)> Enterprise-grade inventory management system with advanced variant handling and bundle operations## 📋 ภาพรวมโปรเจกต์
-
+[![SQL Server](https://img.shields.io/badge/SQL%20Server-LocalDB-red)](https://www.microsoft.com/en-us/sql-server)
 [![Tests](https://img.shields.io/badge/Tests-16%2F16%20Passing-brightgreen)](tests/)
-
 [![Status](https://img.shields.io/badge/Status-Production%20Ready-success)](.)
 
+> Enterprise-grade inventory management system with advanced variant handling and bundle operations
 
-
-> Enterprise-grade inventory management system with advanced variant handling and bundle operations[![.NET](https://img.shields.io/badge/.NET-9.0-purple)](https://dotnet.microsoft.com/)**FlowAccount Co., Ltd. - Software Engineer Candidate Test Project**
+**FlowAccount Co., Ltd. - Software Engineer Candidate Test Project**
 
 
 
