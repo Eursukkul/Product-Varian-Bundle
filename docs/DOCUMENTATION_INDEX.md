@@ -16,7 +16,7 @@
 
 ---
 
-## 📂 **All Documentation Files (23 total)**
+## 📂 **All Documentation Files (22 total)**
 
 ### 🎯 **Core Documentation (3 files)**
 
