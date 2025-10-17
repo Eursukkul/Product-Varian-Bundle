@@ -16,7 +16,7 @@
 
 ---
 
-## 📂 **All Documentation Files (22 total)**
+## 📂 **All Documentation Files (23 total)**
 
 ### 🎯 **Core Documentation (3 files)**
 
@@ -63,7 +63,7 @@
 
 ---
 
-### 🏗️ **Architecture & Design Documentation (6 files)**
+### 🏗️ **Architecture & Design Documentation (7 files)**
 
 | File | Purpose | Use When |
 |------|---------|----------|
@@ -73,6 +73,7 @@
 | [`FLOW_DIAGRAMS.md`](FLOW_DIAGRAMS.md) | **Process flows** - Visual diagrams for complex processes | Understanding workflows |
 | [`BATCH_OPERATIONS_DETAILS.md`](BATCH_OPERATIONS_DETAILS.md) | Batch variant generation implementation | Understanding batch operations |
 | [`TRANSACTION_MANAGEMENT_DETAILS.md`](TRANSACTION_MANAGEMENT_DETAILS.md) | Transaction patterns and rollback | Understanding concurrency control |
+| [`AI_COPILOT_WORKFLOW.md`](AI_COPILOT_WORKFLOW.md) | **🤖 AI Development Workflow** - Complete guide on using GitHub Copilot 100% | Understanding AI-assisted development |
 
 ---
 
@@ -180,8 +181,8 @@ The following files were removed as redundant:
 
 ---
 
-**Last Updated:** October 16, 2025  
-**Total Documents:** 16 files (including reports)
+**Last Updated:** October 17, 2025  
+**Total Documents:** 23 files (including reports and AI workflow documentation)
 
 ---
 

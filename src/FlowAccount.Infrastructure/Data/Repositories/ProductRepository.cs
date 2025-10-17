@@ -13,7 +13,9 @@ public class ProductRepository : Repository<ProductMaster>, IProductRepository
 
     public async Task<ProductMaster?> GetProductWithVariantsAsync(int id)
     {
+        // ✅ OPTIMIZATION: AsNoTracking for read-only queries
         return await _dbSet
+            .AsNoTracking()
             .Include(p => p.Category)
             .Include(p => p.ProductVariants)
                 .ThenInclude(pv => pv.Attributes)
@@ -46,7 +48,10 @@ public class ProductRepository : Repository<ProductMaster>, IProductRepository
 
     public async Task<IEnumerable<ProductMaster>> GetActiveProductsAsync()
     {
+        // ✅ OPTIMIZATION: AsNoTracking + AsSplitQuery for better performance with multiple includes
         return await _dbSet
+            .AsNoTracking()
+            .AsSplitQuery()
             .Include(p => p.Category)
             .Include(p => p.ProductVariants)
             .Where(p => p.IsActive)

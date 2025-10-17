@@ -253,10 +253,12 @@ public class ProductService : IProductService
             }
 
             var generatedVariants = new List<ProductVariant>();
+            var createdAt = DateTime.UtcNow;
 
             await _unitOfWork.BeginTransactionAsync();
             _logger.LogDebug("Transaction started for variant generation");
 
+            // ✅ OPTIMIZATION 1: Prepare all variants first (no DB calls in loop)
             foreach (var combination in combinations)
             {
                 // Generate SKU
@@ -273,24 +275,30 @@ public class ProductService : IProductService
                     Price = price,
                     Cost = request.BaseCost,
                     IsActive = true,
-                    CreatedAt = DateTime.UtcNow
+                    CreatedAt = createdAt
                 };
 
-                await _unitOfWork.Variants.AddAsync(variant);
-                await _unitOfWork.SaveChangesAsync();
+                generatedVariants.Add(variant);
+            }
 
-                // Create variant attributes
+            // ✅ OPTIMIZATION 2: Bulk insert all variants at once
+            await _unitOfWork.Variants.AddRangeAsync(generatedVariants);
+            await _unitOfWork.SaveChangesAsync();
+
+            // ✅ OPTIMIZATION 3: Create attributes after variants have IDs
+            for (int i = 0; i < generatedVariants.Count; i++)
+            {
+                var variant = generatedVariants[i];
+                var combination = combinations[i];
+
                 variant.Attributes = combination.Select(optionValue => new ProductVariantAttribute
                 {
                     ProductVariantId = variant.Id,
                     VariantOptionValueId = optionValue.Id
                 }).ToList();
-
-                _unitOfWork.Variants.Update(variant);
-
-                generatedVariants.Add(variant);
             }
 
+            // Save all attributes together
             await _unitOfWork.SaveChangesAsync();
             await _unitOfWork.CommitTransactionAsync();
 
@@ -358,14 +366,17 @@ public class ProductService : IProductService
             var sku = pattern;
             foreach (var value in combination)
             {
-                sku = sku.Replace($"{{{value.VariantOption.Name}}}", value.Value.ToUpper());
+                if (value?.VariantOption?.Name != null && value.Value != null)
+                {
+                    sku = sku.Replace($"{{{value.VariantOption.Name}}}", value.Value.ToUpper());
+                }
             }
             return sku;
         }
 
         // Default SKU format: PRODUCTNAME-VALUE1-VALUE2
         var skuParts = new List<string> { productName.Replace(" ", "").ToUpper() };
-        skuParts.AddRange(combination.Select(v => v.Value.ToUpper()));
+        skuParts.AddRange(combination.Where(v => v?.Value != null).Select(v => v.Value!.ToUpper()));
         return string.Join("-", skuParts);
     }
 
@@ -381,8 +392,8 @@ public class ProductService : IProductService
 
         if (strategy == PriceStrategy.SizeAdjusted)
         {
-            var sizeValue = combination.FirstOrDefault(v => v.VariantOption.Name.ToLower() == "size");
-            if (sizeValue != null)
+            var sizeValue = combination.FirstOrDefault(v => v?.VariantOption?.Name?.ToLower() == "size");
+            if (sizeValue?.Value != null)
             {
                 adjustedPrice += sizeValue.Value.ToUpper() switch
                 {
