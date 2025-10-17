@@ -242,14 +242,14 @@ public class ProductService : IProductService
                 request.ProductMasterId,
                 combinations.Count);
 
-            // Validate we're not exceeding 250 variants
-            if (combinations.Count > 250)
+            // Validate we're not exceeding 500 variants
+            if (combinations.Count > 500)
             {
                 _logger.LogError(
-                    "Variant generation limit exceeded: ProductId={ProductId}, RequestedCount={RequestedCount}, MaxAllowed=250",
+                    "Variant generation limit exceeded: ProductId={ProductId}, RequestedCount={RequestedCount}, MaxAllowed=500",
                     request.ProductMasterId,
                     combinations.Count);
-                throw new InvalidOperationException($"Cannot generate more than 250 variants. Requested: {combinations.Count}");
+                throw new InvalidOperationException($"Cannot generate more than 500 variants. Requested: {combinations.Count}");
             }
 
             var generatedVariants = new List<ProductVariant>();

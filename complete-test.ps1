@@ -70,7 +70,7 @@ try {
     
     $productRequest = @{
         name = "T-Shirt Premium"
-        description = "Premium cotton t-shirt with 250 variants (10 colors x 25 sizes)"
+        description = "Premium cotton t-shirt with 500 variants (10 colors x 50 sizes)"
         categoryId = 1
         isActive = $true
         variantOptions = @(
@@ -83,9 +83,18 @@ try {
                 name = "Size"
                 displayOrder = 2
                 values = @(
+                    # Standard Sizes (8)
                     "XXS", "XS", "S", "M", "L", "XL", "XXL", "XXXL",
-                    "2XS", "3XS", "2XL", "3XL", "4XL", "5XL",
-                    "28", "30", "32", "34", "36", "38", "40", "42", "44", "46", "48"
+                    # Extra Small/Large (8)
+                    "2XS", "3XS", "4XS", "5XS",
+                    "2XL", "3XL", "4XL", "5XL",
+                    # Numeric Sizes - Waist/Chest measurements (24)
+                    "24", "26", "28", "30", "32", "34", "36", "38", "40", "42", "44", "46", "48", "50",
+                    "52", "54", "56", "58", "60", "62", "64", "66", "68", "70",
+                    # International Sizes (5)
+                    "XS-S", "S-M", "M-L", "L-XL", "XL-XXL",
+                    # Kids Sizes (5)
+                    "2T", "3T", "4T", "5T", "6T"
                 )
             }
         )
@@ -133,7 +142,7 @@ try {
     
     $totalVariants = $colorValueIds.Count * $sizeValueIds.Count
     Write-Host "  Request: Generating $($colorValueIds.Count) colors x $($sizeValueIds.Count) sizes = $totalVariants variants" -ForegroundColor Cyan
-    Write-Host "  This tests BATCH OPERATION requirement (250+ variants)" -ForegroundColor Yellow
+    Write-Host "  This tests BATCH OPERATION requirement (500 variants)" -ForegroundColor Yellow
     
     try {
         $variantResponse = Invoke-RestMethod `
@@ -148,10 +157,10 @@ try {
         Write-Success "Generated $generatedCount variants ($($colorValueIds.Count) colors x $($sizeValueIds.Count) sizes)"
         Write-Host "  Processing Time: $processingTime" -ForegroundColor Gray
         
-        if ($generatedCount -ge 250) {
-            Write-Host "  [OK] BATCH OPERATION requirement met (250+ variants)" -ForegroundColor Green
+        if ($generatedCount -ge 500) {
+            Write-Host "  [OK] BATCH OPERATION requirement met (500 variants)" -ForegroundColor Green
         } else {
-            Write-Host "  [WARNING] Expected 250+ variants, got $generatedCount" -ForegroundColor Yellow
+            Write-Host "  [WARNING] Expected 500 variants, got $generatedCount" -ForegroundColor Yellow
         }
         
         if ($variantResponse.data.variants -and $variantResponse.data.variants.Count -gt 0) {
