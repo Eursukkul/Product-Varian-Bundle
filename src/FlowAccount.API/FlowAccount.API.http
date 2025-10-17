@@ -1,6 +1,371 @@
 @FlowAccount.API_HostAddress = http://localhost:5159
 
-GET {{FlowAccount.API_HostAddress}}/weatherforecast/
+### ================================
+### 🎯 COMPLETE API TESTING GUIDE
+### ================================
+### FlowAccount - Product Variant & Bundle System
+### All endpoints with example payloads
+### ================================
+
+### ================================
+### 📦 PRODUCTS - Create & Manage Products
+### ================================
+
+### 1. Create Product Master with Variant Options
+POST {{FlowAccount.API_HostAddress}}/api/products
+Content-Type: application/json
+
+{
+  "name": "Premium T-Shirt",
+  "description": "High-quality cotton t-shirt with multiple options",
+  "categoryId": 1,
+  "isActive": true,
+  "variantOptions": [
+    {
+      "name": "Size",
+      "displayOrder": 1,
+      "values": ["S", "M", "L", "XL", "XXL"]
+    },
+    {
+      "name": "Color",
+      "displayOrder": 2,
+      "values": ["Red", "Blue", "Green", "Black", "White"]
+    }
+  ]
+}
+
+### 2. Get All Products
+GET {{FlowAccount.API_HostAddress}}/api/products
 Accept: application/json
+
+### 3. Get Product by ID (Replace {id} with actual ID)
+GET {{FlowAccount.API_HostAddress}}/api/products/6
+Accept: application/json
+
+### 4. Update Product
+PUT {{FlowAccount.API_HostAddress}}/api/products/6
+Content-Type: application/json
+
+{
+  "name": "Premium T-Shirt (Updated)",
+  "description": "Updated description",
+  "categoryId": 1,
+  "isActive": true
+}
+
+### 5. Delete Product
+DELETE {{FlowAccount.API_HostAddress}}/api/products/999
+Accept: application/json
+
+### ================================
+### 🚀 BATCH OPERATIONS - Generate Multiple Variants
+### ================================
+
+### 6. Generate Variants (BATCH OPERATION - Up to 250 variants)
+### Replace option IDs and value IDs with actual values from product creation response
+POST {{FlowAccount.API_HostAddress}}/api/products/6/generate-variants
+Content-Type: application/json
+
+{
+  "productMasterId": 6,
+  "selectedOptions": {
+    "7": [22, 23, 24, 25, 26],
+    "8": [27, 28, 29, 30, 31]
+  },
+  "priceStrategy": 0,
+  "basePrice": 299.00,
+  "baseCost": 150.00,
+  "skuPattern": "TSHIRT-{Size}-{Color}"
+}
+
+### 7. Generate 250 Variants (MAXIMUM CAPACITY TEST)
+POST {{FlowAccount.API_HostAddress}}/api/products/10/generate-variants
+Content-Type: application/json
+
+{
+  "productMasterId": 10,
+  "selectedOptions": {
+    "17": [82, 83, 84, 85, 86, 87, 88, 89, 90, 91],
+    "18": [92, 93, 94, 95, 96],
+    "19": [97, 98, 99, 100, 101]
+  },
+  "priceStrategy": 0,
+  "basePrice": 499.00,
+  "baseCost": 250.00,
+  "skuPattern": "ULTIMATE-{Size}-{Color}-{Material}"
+}
+
+### ================================
+### 🎨 VARIANTS - Manage Product Variants
+### ================================
+
+### 8. Get All Variants
+GET {{FlowAccount.API_HostAddress}}/api/variants
+Accept: application/json
+
+### 9. Get Variant by ID
+GET {{FlowAccount.API_HostAddress}}/api/variants/1
+Accept: application/json
+
+### 10. Get Variants by Product ID
+GET {{FlowAccount.API_HostAddress}}/api/products/6/variants
+Accept: application/json
+
+### 11. Create Single Variant
+POST {{FlowAccount.API_HostAddress}}/api/variants
+Content-Type: application/json
+
+{
+  "productMasterId": 6,
+  "sku": "TSHIRT-CUSTOM-001",
+  "price": 350.00,
+  "cost": 180.00,
+  "isActive": true,
+  "attributes": [
+    {
+      "variantOptionValueId": 22
+    },
+    {
+      "variantOptionValueId": 27
+    }
+  ]
+}
+
+### 12. Update Variant
+PUT {{FlowAccount.API_HostAddress}}/api/variants/1
+Content-Type: application/json
+
+{
+  "sku": "TSHIRT-RED-S-V2",
+  "price": 320.00,
+  "cost": 160.00,
+  "isActive": true
+}
+
+### ================================
+### 📦 BUNDLES - Create & Manage Bundles
+### ================================
+
+### 13. Create Bundle with Mixed Items (Products + Variants)
+POST {{FlowAccount.API_HostAddress}}/api/bundles
+Content-Type: application/json
+
+{
+  "name": "Summer Collection Bundle",
+  "description": "Complete summer outfit with t-shirt and accessories",
+  "price": 799.00,
+  "isActive": true,
+  "items": [
+    {
+      "itemType": "Variant",
+      "itemId": 1,
+      "quantity": 1
+    },
+    {
+      "itemType": "Variant",
+      "itemId": 2,
+      "quantity": 1
+    },
+    {
+      "itemType": "Product",
+      "itemId": 5,
+      "quantity": 2
+    }
+  ]
+}
+
+### 14. Get All Bundles
+GET {{FlowAccount.API_HostAddress}}/api/bundles
+Accept: application/json
+
+### 15. Get Bundle by ID
+GET {{FlowAccount.API_HostAddress}}/api/bundles/2
+Accept: application/json
+
+### 16. Update Bundle
+PUT {{FlowAccount.API_HostAddress}}/api/bundles/2
+Content-Type: application/json
+
+{
+  "name": "Summer Collection Bundle (Updated)",
+  "description": "Updated bundle description",
+  "price": 849.00,
+  "isActive": true
+}
+
+### ================================
+### 📊 STOCK LOGIC - Calculate Bundle Availability
+### ================================
+
+### 17. Calculate Bundle Stock (STOCK LOGIC with Bottleneck Detection)
+POST {{FlowAccount.API_HostAddress}}/api/bundles/2/calculate-stock
+Content-Type: application/json
+
+{
+  "bundleId": 2,
+  "warehouseId": 1
+}
+
+### Expected Response:
+### {
+###   "success": true,
+###   "message": "Bundle can produce 30 units",
+###   "data": {
+###     "maxAvailableBundles": 30,
+###     "itemsStockBreakdown": [
+###       {
+###         "itemName": "T-Shirt (Size: M, Color: Blue)",
+###         "requiredQuantity": 1,
+###         "availableQuantity": 50,
+###         "possibleBundles": 50,
+###         "isBottleneck": false
+###       },
+###       {
+###         "itemName": "Shorts (Size: L)",
+###         "requiredQuantity": 1,
+###         "availableQuantity": 30,
+###         "possibleBundles": 30,
+###         "isBottleneck": true   // ⚠️ This limits production
+###       }
+###     ],
+###     "explanation": "Bundle limited by: Shorts (Size: L) - only 30 units available"
+###   }
+### }
+
+### ================================
+### 💰 TRANSACTION MANAGEMENT - Sell Bundle
+### ================================
+
+### 18. Sell Bundle (TRANSACTION MANAGEMENT - Atomic Stock Deduction)
+POST {{FlowAccount.API_HostAddress}}/api/bundles/2/sell
+Content-Type: application/json
+
+{
+  "bundleId": 2,
+  "warehouseId": 1,
+  "quantity": 5,
+  "allowBackorder": false,
+  "notes": "Testing transaction management"
+}
+
+### Expected Response:
+### {
+###   "success": true,
+###   "message": "Bundle sold successfully. 25 bundles remaining",
+###   "data": {
+###     "transactionId": "TXN-20251017-143025",
+###     "stockDeductions": [
+###       {
+###         "itemName": "T-Shirt (M, Blue)",
+###         "itemSku": "TSHIRT-M-Blue",
+###         "quantityDeducted": 5,
+###         "stockBefore": 50,
+###         "stockAfter": 45
+###       },
+###       {
+###         "itemName": "Shorts (L)",
+###         "itemSku": "SHORTS-L",
+###         "quantityDeducted": 5,
+###         "stockBefore": 30,
+###         "stockAfter": 25
+###       }
+###     ],
+###     "remainingBundleStock": 25
+###   }
+### }
+
+### ================================
+### 📦 STOCK MANAGEMENT
+### ================================
+
+### 19. Query Stock by Warehouse and Item
+GET {{FlowAccount.API_HostAddress}}/api/stock/query?warehouseId=1&itemType=Variant&itemId=1
+Accept: application/json
+
+### 20. Adjust Stock (Add Inventory)
+POST {{FlowAccount.API_HostAddress}}/api/stock/adjust
+Content-Type: application/json
+
+{
+  "warehouseId": 1,
+  "itemType": "Variant",
+  "itemId": 1,
+  "quantityChange": 100,
+  "transactionType": "Purchase",
+  "referenceNumber": "PO-2024-001",
+  "notes": "Initial stock purchase"
+}
+
+### 21. Adjust Stock (Reduce Inventory)
+POST {{FlowAccount.API_HostAddress}}/api/stock/adjust
+Content-Type: application/json
+
+{
+  "warehouseId": 1,
+  "itemType": "Variant",
+  "itemId": 2,
+  "quantityChange": -10,
+  "transactionType": "Adjustment",
+  "referenceNumber": "ADJ-2024-001",
+  "notes": "Damaged goods writeoff"
+}
+
+### 22. Get Stock History
+GET {{FlowAccount.API_HostAddress}}/api/stock/history?warehouseId=1&itemType=Variant&itemId=1
+Accept: application/json
+
+### ================================
+### 🏢 WAREHOUSES
+### ================================
+
+### 23. Get All Warehouses
+GET {{FlowAccount.API_HostAddress}}/api/warehouses
+Accept: application/json
+
+### 24. Create Warehouse
+POST {{FlowAccount.API_HostAddress}}/api/warehouses
+Content-Type: application/json
+
+{
+  "name": "Warehouse Bangkok",
+  "location": "Bangkok, Thailand",
+  "isActive": true
+}
+
+### ================================
+### 📂 CATEGORIES
+### ================================
+
+### 25. Get All Categories
+GET {{FlowAccount.API_HostAddress}}/api/categories
+Accept: application/json
+
+### 26. Create Category
+POST {{FlowAccount.API_HostAddress}}/api/categories
+Content-Type: application/json
+
+{
+  "name": "Clothing",
+  "description": "Clothing and apparel products",
+  "isActive": true
+}
+
+### ================================
+### 🧪 TESTING SCENARIOS
+### ================================
+
+### SCENARIO 1: Complete Product Creation with Variants
+### Step 1: Create Product (Request #1)
+### Step 2: Generate Variants (Request #6)
+### Step 3: Get Variants (Request #10)
+
+### SCENARIO 2: Bundle Creation and Stock Calculation
+### Step 1: Create Bundle (Request #13)
+### Step 2: Add Stock to Items (Request #20)
+### Step 3: Calculate Bundle Stock (Request #17)
+### Step 4: Sell Bundle (Request #18)
+
+### SCENARIO 3: Maximum Capacity Test (250 Variants)
+### Use Request #7 with 10×5×5 = 250 combinations
 
 ###
