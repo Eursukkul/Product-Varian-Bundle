@@ -16,19 +16,20 @@
 
 ---
 
-## 📂 **All Documentation Files (23 total)**
+## 📂 **All Documentation Files (22 total)**
 
-### 🎯 **Core Documentation (3 files)**
+### 🎯 **Core Documentation (2 files)**
 
 | File | Purpose | Use When |
 |------|---------|----------|
-| [`README.md`](README.md) | **Main Project Documentation** - Overview, architecture, features | ⭐ Complete project understanding |
 | [`PROJECT_COMPLETION_REPORT.md`](PROJECT_COMPLETION_REPORT.md) | Requirements checklist, implementation details, testing summary | Verify all requirements met |
 | [`QUICK_START.md`](QUICK_START.md) | Setup guide - build, run, first steps | New developers joining |
 
+> **Note:** Main README.md is at project root (`/README.md`)
+
 ---
 
-### 🧪 **Testing Documentation (8 files)**
+### 🧪 **Testing Documentation (6 files)**
 
 | File | Purpose | Use When |
 |------|---------|----------|
@@ -38,8 +39,6 @@
 | [`TESTING_RESULTS_REPORT.md`](TESTING_RESULTS_REPORT.md) | **⭐ Complete test results** - All features verified | Review final test results |
 | [`MAXIMUM_CAPACITY_TEST_REPORT.md`](MAXIMUM_CAPACITY_TEST_REPORT.md) | **🏆 250 Variants Test** - Maximum capacity verification | See proof of max capacity |
 | [`TEST_COVERAGE_SUMMARY.md`](TEST_COVERAGE_SUMMARY.md) | **⭐ Complete test documentation** - Unit, Integration, E2E tests | Understand all testing approaches |
-| [`FINAL_PROJECT_STATUS.md`](FINAL_PROJECT_STATUS.md) | Final project status and metrics | Project completion confirmation |
-| [`DOCUMENTATION_CLEANUP_REPORT.md`](DOCUMENTATION_CLEANUP_REPORT.md) | Documentation organization report | See what was cleaned up |
 
 ---
 
@@ -52,22 +51,20 @@
 
 ---
 
-### 📊 **Logging Documentation (4 files)**
+### 📊 **Logging Documentation (3 files)**
 
 | File | Purpose | Use When |
 |------|---------|----------|
 | [`SERILOG_IMPLEMENTATION_SUMMARY.md`](SERILOG_IMPLEMENTATION_SUMMARY.md) | Overview of logging architecture | Understanding logging setup |
 | [`SERILOG_CONFIGURATION.md`](SERILOG_CONFIGURATION.md) | Configuration settings and options | Modifying log settings |
 | [`SERILOG_USAGE_GUIDE.md`](SERILOG_USAGE_GUIDE.md) | How to add logging to your code | Adding logs to new features |
-| [`SERILOG_BEST_PRACTICES.md`](SERILOG_BEST_PRACTICES.md) | Logging best practices and patterns | Writing better logs |
 
 ---
 
-### 🏗️ **Architecture & Design Documentation (7 files)**
+### 🏗️ **Architecture & Design Documentation (6 files)**
 
 | File | Purpose | Use When |
 |------|---------|----------|
-| [`DESIGN_DECISIONS.md`](DESIGN_DECISIONS.md) | **⭐ All design decisions** - Rationale for architectural choices | Understanding why decisions were made |
 | [`DATABASE_DESIGN_DETAILED.md`](DATABASE_DESIGN_DETAILED.md) | **ER Diagram + Indexes** - Complete database schema with performance strategy | Database schema reference |
 | [`IDEMPOTENCY_RETRY_DESIGN.md`](IDEMPOTENCY_RETRY_DESIGN.md) | **Idempotency & Retry** - Retry-safe design with error handling | Understanding retry policies |
 | [`FLOW_DIAGRAMS.md`](FLOW_DIAGRAMS.md) | **Process flows** - Visual diagrams for complex processes | Understanding workflows |
@@ -182,7 +179,9 @@ The following files were removed as redundant:
 ---
 
 **Last Updated:** October 17, 2025  
-**Total Documents:** 23 files (including reports and AI workflow documentation)
+**Total Documents:** 22 files in `/docs/` folder (Main README.md is at project root)
+
+> **Removed files:** DESIGN_DECISIONS.md, DOCUMENTATION_CLEANUP_REPORT.md, DOCUMENTATION_COMPLETENESS_CHECKLIST.md, SERILOG_BEST_PRACTICES.md (streamlined documentation)
 
 ---
 

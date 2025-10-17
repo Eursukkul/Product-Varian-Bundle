@@ -679,7 +679,7 @@ Application started. Press Ctrl+C to shut down.
 **3. เปิด VS Code:**
 - Explorer pane → แสดงโฟลเดอร์ `docs/`
 - เตรียมไฟล์:
-  - `docs/SWAGGER_DEMO_PAYLOADS.md` (สำหรับ copy JSON)
+  - `docs/COMPLETE_TESTING_GUIDE.md` (มี Request/Response examples)
   - `docs/BATCH_OPERATIONS_DETAILS.md`
   - `docs/TRANSACTION_MANAGEMENT_DETAILS.md`
   - `docs/DOCUMENTATION_INDEX.md`

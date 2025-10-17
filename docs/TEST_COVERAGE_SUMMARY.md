@@ -375,7 +375,7 @@ Response: 200 OK
    - Two simultaneous updates
    - Verify: 409 Conflict returned, retry successful
 
-**Evidence:** All scenarios tested successfully with Swagger (see `SWAGGER_DEMO_PAYLOADS.md`)
+**Evidence:** All scenarios tested successfully with Swagger (see `COMPLETE_TESTING_GUIDE.md` for Request/Response examples)
 
 ---
 
