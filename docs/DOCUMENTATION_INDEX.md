@@ -16,7 +16,7 @@
 
 ---
 
-## 📂 **All Documentation Files (17 total)**
+## 📂 **All Documentation Files (23 total)**
 
 ### 🎯 **Core Documentation (3 files)**
 
@@ -28,7 +28,7 @@
 
 ---
 
-### 🧪 **Testing Documentation (7 files)**
+### 🧪 **Testing Documentation (8 files)**
 
 | File | Purpose | Use When |
 |------|---------|----------|
@@ -37,6 +37,7 @@
 | [`UNIT_TESTS_SUMMARY.md`](UNIT_TESTS_SUMMARY.md) | Unit test results: 16/16 passed (100%) | Verify automated tests |
 | [`TESTING_RESULTS_REPORT.md`](TESTING_RESULTS_REPORT.md) | **⭐ Complete test results** - All features verified | Review final test results |
 | [`MAXIMUM_CAPACITY_TEST_REPORT.md`](MAXIMUM_CAPACITY_TEST_REPORT.md) | **🏆 250 Variants Test** - Maximum capacity verification | See proof of max capacity |
+| [`TEST_COVERAGE_SUMMARY.md`](TEST_COVERAGE_SUMMARY.md) | **⭐ Complete test documentation** - Unit, Integration, E2E tests | Understand all testing approaches |
 | [`FINAL_PROJECT_STATUS.md`](FINAL_PROJECT_STATUS.md) | Final project status and metrics | Project completion confirmation |
 | [`DOCUMENTATION_CLEANUP_REPORT.md`](DOCUMENTATION_CLEANUP_REPORT.md) | Documentation organization report | See what was cleaned up |
 
@@ -59,6 +60,19 @@
 | [`SERILOG_CONFIGURATION.md`](SERILOG_CONFIGURATION.md) | Configuration settings and options | Modifying log settings |
 | [`SERILOG_USAGE_GUIDE.md`](SERILOG_USAGE_GUIDE.md) | How to add logging to your code | Adding logs to new features |
 | [`SERILOG_BEST_PRACTICES.md`](SERILOG_BEST_PRACTICES.md) | Logging best practices and patterns | Writing better logs |
+
+---
+
+### 🏗️ **Architecture & Design Documentation (6 files)**
+
+| File | Purpose | Use When |
+|------|---------|----------|
+| [`DESIGN_DECISIONS.md`](DESIGN_DECISIONS.md) | **⭐ All design decisions** - Rationale for architectural choices | Understanding why decisions were made |
+| [`DATABASE_DESIGN_DETAILED.md`](DATABASE_DESIGN_DETAILED.md) | **ER Diagram + Indexes** - Complete database schema with performance strategy | Database schema reference |
+| [`IDEMPOTENCY_RETRY_DESIGN.md`](IDEMPOTENCY_RETRY_DESIGN.md) | **Idempotency & Retry** - Retry-safe design with error handling | Understanding retry policies |
+| [`FLOW_DIAGRAMS.md`](FLOW_DIAGRAMS.md) | **Process flows** - Visual diagrams for complex processes | Understanding workflows |
+| [`BATCH_OPERATIONS_DETAILS.md`](BATCH_OPERATIONS_DETAILS.md) | Batch variant generation implementation | Understanding batch operations |
+| [`TRANSACTION_MANAGEMENT_DETAILS.md`](TRANSACTION_MANAGEMENT_DETAILS.md) | Transaction patterns and rollback | Understanding concurrency control |
 
 ---
 
