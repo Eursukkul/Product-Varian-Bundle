@@ -244,6 +244,48 @@ try {
     Write-Host "  Contains: 1x Variant $($variant1.id) + 1x Variant $($variant2.id)" -ForegroundColor Gray
     
     # ========================================
+    # STEP 5.5: Adjust Stock for Variants
+    # ========================================
+    Write-Section "STEP 5.5: Adjust Stock for Variants"
+    
+    # Adjust stock for Variant 1
+    $adjustStock1 = @{
+        warehouseId = 1
+        itemType = "Variant"
+        itemId = $variant1.id
+        quantity = 50
+        adjustmentType = "StockIn"
+        reason = "Initial stock for demo"
+    } | ConvertTo-Json -Depth 10
+    
+    $adjustResponse1 = Invoke-RestMethod `
+        -Uri "$baseUrl/api/stock/adjust" `
+        -Method Post `
+        -Body $adjustStock1 `
+        -ContentType "application/json"
+    
+    Write-Success "Adjusted stock for Variant $($variant1.id) = 50"
+    
+    # Adjust stock for Variant 2
+    $adjustStock2 = @{
+        warehouseId = 1
+        itemType = "Variant"
+        itemId = $variant2.id
+        quantity = 30
+        adjustmentType = "StockIn"
+        reason = "Initial stock for demo"
+    } | ConvertTo-Json -Depth 10
+    
+    $adjustResponse2 = Invoke-RestMethod `
+        -Uri "$baseUrl/api/stock/adjust" `
+        -Method Post `
+        -Body $adjustStock2 `
+        -ContentType "application/json"
+    
+    Write-Success "Adjusted stock for Variant $($variant2.id) = 30"
+    Write-Host "  This creates a bottleneck scenario (50 vs 30)" -ForegroundColor Yellow
+    
+    # ========================================
     # STEP 6: Calculate Bundle Stock (STOCK LOGIC - Bottleneck Detection)
     # ========================================
     Write-Section "STEP 6: Calculate Bundle Stock - STOCK LOGIC"
@@ -320,6 +362,33 @@ try {
     } else {
         Write-Host "  Skipping sale - No stock available" -ForegroundColor Yellow
     }
+    
+    # ========================================
+    # STEP 8: Verify Stock After Sale
+    # ========================================
+    Write-Section "STEP 8: Verify Stock After Sale"
+    
+    $stockAfter1 = Invoke-RestMethod `
+        -Uri "$baseUrl/api/stock?warehouseId=1&itemType=Variant&itemId=$($variant1.id)" `
+        -Method Get
+    
+    $stockAfter2 = Invoke-RestMethod `
+        -Uri "$baseUrl/api/stock?warehouseId=1&itemType=Variant&itemId=$($variant2.id)" `
+        -Method Get
+    
+    Write-Success "Stock verified after sale"
+    Write-Host "  Variant 1 Stock: $($stockAfter1.data.availableQuantity)" -ForegroundColor Gray
+    Write-Host "  Variant 2 Stock: $($stockAfter2.data.availableQuantity)" -ForegroundColor Gray
+    
+    # Recalculate bundle stock
+    $newCalcResponse = Invoke-RestMethod `
+        -Uri "$baseUrl/api/bundles/$bundleId/calculate-stock" `
+        -Method Post `
+        -Body $calcRequest `
+        -ContentType "application/json"
+    
+    $newMaxBundles = $newCalcResponse.data.maxAvailableBundles
+    Write-Success "Recalculated max bundles: $newMaxBundles"
     
     # ========================================
     # SUMMARY
