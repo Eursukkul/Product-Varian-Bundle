@@ -262,7 +262,7 @@ public class ProductService : IProductService
             foreach (var combination in combinations)
             {
                 // Generate SKU
-                var sku = GenerateSKU(product.Name, combination, request.SkuPattern);
+                var sku = GenerateSKU(product.Name, combination, request.SkuPattern, product.Id);
 
                 // Calculate price based on strategy
                 var price = CalculatePrice(request.BasePrice, combination, request.PriceStrategy);
@@ -359,25 +359,32 @@ public class ProductService : IProductService
         return result;
     }
 
-    private string GenerateSKU(string productName, List<VariantOptionValue> combination, string? pattern)
+    private string GenerateSKU(string productName, List<VariantOptionValue> combination, string? pattern, int productId)
     {
+        string baseSku;
+
         if (!string.IsNullOrEmpty(pattern))
         {
-            var sku = pattern;
+            baseSku = pattern;
             foreach (var value in combination)
             {
                 if (value?.VariantOption?.Name != null && value.Value != null)
                 {
-                    sku = sku.Replace($"{{{value.VariantOption.Name}}}", value.Value.ToUpper());
+                    baseSku = baseSku.Replace($"{{{value.VariantOption.Name}}}", value.Value.ToUpper());
                 }
             }
-            return sku;
+        }
+        else
+        {
+            // Default SKU format: PRODUCTNAME-VALUE1-VALUE2
+            var skuParts = new List<string> { productName.Replace(" ", "").ToUpper() };
+            skuParts.AddRange(combination.Where(v => v?.Value != null).Select(v => v.Value!.ToUpper()));
+            baseSku = string.Join("-", skuParts);
         }
 
-        // Default SKU format: PRODUCTNAME-VALUE1-VALUE2
-        var skuParts = new List<string> { productName.Replace(" ", "").ToUpper() };
-        skuParts.AddRange(combination.Where(v => v?.Value != null).Select(v => v.Value!.ToUpper()));
-        return string.Join("-", skuParts);
+        // Ensure uniqueness by appending product ID if SKU already exists
+        // This handles cases where the same pattern generates identical SKUs for different products
+        return $"{baseSku}-{productId}";
     }
 
     private decimal CalculatePrice(decimal basePrice, List<VariantOptionValue> combination, PriceStrategy strategy)
