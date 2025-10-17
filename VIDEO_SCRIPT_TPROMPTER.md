@@ -459,7 +459,86 @@ Stock Logic
 
 ---
 
-## 📦 ส่วนที่ 4: Feature ที่สอง - คำนวณสต็อก Bundle (1.5 นาที)
+## 📦 ส่วนที่ 4: Stock Management API (1 นาที)
+
+ก่อนจะดู Bundle Stock
+
+ผมต้องอธิบาย Stock Management ก่อน
+
+[หยุด 1 วินาที]
+
+👉 **[เปิด Browser → Swagger]**
+
+👉 **[ชี้ที่ Stock tag/section]**
+
+ผมสร้าง StockController
+
+สำหรับจัดการสต็อกสินค้า
+
+[หยุด 1 วินาที]
+
+มี 2 API หลัก
+
+[หยุด]
+
+👉 **[ชี้ที่ POST /api/stock/adjust]**
+
+อันแรก POST /api/stock/adjust
+
+เพิ่มหรือลดสต็อก
+
+[หยุด]
+
+👉 **[ชี้ที่ GET /api/stock]**
+
+อันที่สอง GET /api/stock
+
+เช็คสต็อกปัจจุบัน
+
+[หยุด 1 วินาที]
+
+👉 **[คลิก POST /api/stock/adjust → Try it out]**
+
+ลอง Demo การเพิ่มสต็อกนะครับ
+
+[หยุด 1 วินาที]
+
+👉 **[Copy payload นี้:]**
+
+```json
+{
+  "warehouseId": 1,
+  "itemType": "Variant",
+  "itemId": 1,
+  "quantity": 50,
+  "adjustmentType": "StockIn",
+  "reason": "เติมสต็อกสินค้า"
+}
+```
+
+👉 **[Execute]**
+
+[หยุด 2 วินาที]
+
+เห็นไหมครับ
+
+สต็อกเพิ่มขึ้นเป็น 50
+
+[หยุด 1 วินาที]
+
+AdjustmentType มี 3 แบบ
+
+StockIn เพิ่มสต็อก
+
+StockOut ลดสต็อก
+
+Set กำหนดค่าตรงๆ
+
+[หยุด 2 วินาที]
+
+---
+
+## 📦 ส่วนที่ 5: Feature ที่สอง - คำนวณสต็อก Bundle (1.5 นาที)
 
 Feature ที่สอง
 
